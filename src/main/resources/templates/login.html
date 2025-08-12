@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录页面</title>
+    <link rel="stylesheet" href="../static/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/font/bootstrap-icons.css">
+    <style>
+        .login-card {
+            max-width: 400px;
+            width: 90%;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="bg-light">
+<!-- 居中容器 -->
+<div class="min-vh-100 d-flex justify-content-center align-items-center">
+    <div class="login-card bg-white p-4 p-md-5">
+        <!-- 登录标题 -->
+        <div class="text-center mb-4">
+            <i class="bi bi-person-circle fs-1 text-primary"></i>
+            <h2 class="mt-2">用户登录</h2>
+        </div>
+
+        <!-- 登录表单 -->
+        <form method="post" action="/valid">
+            <!-- 用户名输入 -->
+            <div class="mb-3">
+                <label class="form-label">用户名</label>
+                <div class="input-group">
+                        <span class="input-group-text">
+                            <!--图片-->
+                            <i class="bi bi-person"></i>
+                        </span>
+                    <input type="text" name="user" class="form-control" placeholder="请输入用户名">
+                </div>
+            </div>
+
+            <!-- 密码输入 -->
+            <div class="mb-4">
+                <label class="form-label">密码</label>
+                <div class="input-group">
+                        <span class="input-group-text">
+                            <i class="bi bi-lock"></i>
+                        </span>
+                    <input type="password" name="pass" class="form-control" placeholder="请输入密码">
+                </div>
+            </div>
+
+            <!-- 记住我 & 忘记密码 -->
+            <div class="d-flex justify-content-between mb-4">
+                <div class="form-check">
+                    <input class="form-check-input" name="remember" type="checkbox">
+                    <label class="form-check-label">记住我</label>
+                </div>
+                <a href="/register" class="text-decoration-none">注册</a>
+            </div>
+
+            <!-- 登录按钮 -->
+            <button type="submit" class="btn btn-primary w-100">
+                <i class="bi bi-box-arrow-in-right me-2"></i>
+                立即登录
+            </button>
+        </form>
+    </div>
+</div>
+
+
+</body>
+</html>

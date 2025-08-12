@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>增加个人信息</title>
+    <script src="../static/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="../static/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/font/bootstrap-icons.css">
+
+</head>
+<body class="container">
+       <form action="/save" method="post" enctype="multipart/form-data" class="border-2 p-4 w-100 ms-1 mt-1">
+           <div class="row row-cols-2">
+               <label class="col form-label" for="name">姓名</label>
+               <input id="name"  name="name" th:value="${person?.name}" type="text" class="form-control col" 
+                      required
+                      oninvalid="this.setCustomValidity('请输入姓名')"
+                      oninput="this.setCustomValidity('')"
+                      placeholder="请输入姓名...">
+           </div>
+           <div class="row row-cols-2">
+               <label class="col form-label" for="age">年龄</label>
+               <input id="age"  name="age" th:value="${person?.age}" type="number" min="20" max="30" step="1" class="form-control col" >
+           </div>
+           <div class="row row-cols-2">
+               <div class="col-12">性别</div>
+               <div class="col offset-3">
+                   <label class="form-check-label me-4" for="femal" ><input id="femal" th:checked="${person?.sex == '男'}" name="sex" value="男" type="radio" class="form-check-inline" >男</label>
+                   <label class="form-check-label ms-4" for="male" ><input id="male"   th:checked="${person?.sex == '女'}" name="sex"  value="女" type="radio" class="form-check-inline" >女</label>
+               </div>
+           </div>
+           <th:block th:each="category : ${categories}">
+               <div class="row">
+                   <div class="col-12">
+                       <span th:text="${category.name}">满意度类别</span>
+                       <small class="text-muted ms-2">(可多选)</small>
+                   </div>
+               </div>
+               <div class="row row-cols-1 g-2 mt-2 ps-5 bg-secondary bg-opacity-10 pb-2">
+                   <th:block th:each="item : ${itemsByCategory.get(category.code)}">
+                       <div class="col">
+                           <input th:id="${category.code.toLowerCase() + '-' + itemStat.index}" 
+                                  th:name="${category.code.toLowerCase() + 'Items'}" 
+                                  th:value="${item.id}" 
+                                  type="checkbox" 
+                                  class="form-check-inline"
+                                  th:checked="${person != null && person.satisfactionItems != null && person.satisfactionItems.contains(item)}"
+                                  th:attr="data-category=${category.code.toLowerCase()}">
+                           <label class="form-check-label" 
+                                  th:for="${category.code.toLowerCase() + '-' + itemStat.index}" 
+                                  th:text="${item.content}">选项</label>
+                       </div>
+                   </th:block>
+               </div>
+           </th:block>
+           <div class="row row-cols-2 g-2 mt-2 ">
+               <div class="col text-end ">
+                   <input type="submit" class="btn btn-sm btn-primary" value="提交">
+               </div>
+               <div class="col text-start ">
+                   <button type="button" class="btn btn-sm btn-primary" id="clearBtn">清空</button>
+                   <script>
+                       document.getElementById('clearBtn').addEventListener('click', function() {
+                           // 清空文本输入
+                           document.querySelectorAll('input[type="text"], input[type="number"]').forEach(input => {
+                               input.value = '';
+                           });
+                           
+                           // 重置单选按钮
+                           document.querySelectorAll('input[type="radio"]').forEach(radio => {
+                               radio.checked = false;
+                           });
+                           
+                           // 清空所有复选框
+                           document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+                               checkbox.checked = false;
+                           });
+                       });
+                   </script>
+               </div>
+
+           </div>
+       </form>
+</body>
+</html>

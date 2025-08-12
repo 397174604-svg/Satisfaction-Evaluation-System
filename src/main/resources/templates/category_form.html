@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${category.id} ? '编辑课程' : '添加课程'"></title>
+    <link rel="stylesheet" th:href="@{/static/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/static/font/bootstrap-icons.css}">
+</head>
+<body>
+<div class="container mt-4">
+    <h2 class="mb-4" th:text="${category.id} ? '编辑课程' : '添加课程'"></h2>
+
+    <form th:action="@{/sj/save}" th:object="${category}" method="post">
+        <input type="hidden" th:field="*{id}"/>
+
+        <div class="row mb-3">
+            <label for="categoryCode" class="col-sm-2 col-form-label">类型代码</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="categoryCode" th:field="*{code}" required>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label for="categoryName" class="col-sm-2 col-form-label">类型名称</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="categoryName" th:field="*{name}" required>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <a th:href="@{/sj/itemlist(categoryId=${category.id})}" class="btn btn-primary" style="">
+                <i class="bi bi-plus-lg"></i> 编辑选项
+            </a>
+        </div>
+<!--        <div class="row mb-3">-->
+<!--            <label for="credit" class="col-sm-2 col-form-label">学分</label>-->
+<!--            <div class="col-sm-10">-->
+<!--                <input type="number" class="form-control" id="credit" th:field="*{credit}" min="1" required>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <div class="row mb-3">-->
+<!--            <label for="teacher" class="col-sm-2 col-form-label">授课教师</label>-->
+<!--            <div class="col-sm-10">-->
+<!--                <input type="text" class="form-control" id="teacher" th:field="*{teacher}" required>-->
+<!--            </div>-->
+<!--        </div>-->
+
+        <div class="row mb-3">
+            <div class="col-sm-10 offset-sm-2">
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-save"></i> 保存
+                </button>
+                <a href="/sj/list" class="btn btn-secondary ms-2">取消</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script th:src="@{/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>课程管理</title>
+    <link rel="stylesheet" th:href="@{/static/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/static/font/bootstrap-icons.css}">
+</head>
+<body>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th class="col-2 text-center">类型代码</th>
+            <th class="col-2 text-center">类型名称</th>
+<!--            <th class="col-2 text-center">学分</th>-->
+<!--            <th class="col-4 text-center">授课教师</th>-->
+            <!-- 查询部分 -->
+            <th class="text-center">
+                <form action="/sj/c_search" method="get" style="display: flex; justify-content: center;">
+                    <input id="name" name="name" type="text" style="width: 100px;" placeholder="请输入课程名...">
+                    <input type="submit" class="btn btn-sm btn-primary" value="查询">
+                </form>
+            </th>
+            <th class="col-2 text-center">操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="Category : ${CategoryList}">
+            <td class="text-center" th:text="${Category.code}"></td>
+            <td class="text-center" th:text="${Category.name}"></td>
+<!--            <td class="text-center" th:text="${course.credit}"></td>-->
+<!--            <td class="text-center" th:text="${course.teacher}"></td>-->
+            <td style="width: 0px"></td>
+            <td class="d-flex w-100 justify-content-center">
+                <a th:href="@{/sj/form(id=${Category.id})}" class="btn btn-outline-info mx-1" style="width:100px">
+                    <i class="bi bi-pencil"></i> 编辑
+                </a>
+                <a th:href="@{/sj/delete(id=${Category.id})}" class="btn btn-outline-danger mx-1"
+                   onclick="return confirm('确定要删除该课程吗？')" style="width:100px">
+                    <i class="bi bi-trash"></i> 删除
+                </a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="mb-3">
+    <a href="/sj/form" class="btn btn-primary" style="">
+        <i class="bi bi-plus-lg"></i> 添加类型
+    </a>
+</div>
+
+</body>
+</html>

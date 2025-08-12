@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>浏览个人爱好信息</title>
+    <link rel="stylesheet" href="../static/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/font/bootstrap-icons.css">
+</head>
+<body>
+
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <td class="col-1 text-center">姓名</td>
+        <th:block th:each="category : ${categories}">
+            <!--            th:colspan控制单元格的列数，category.getName()是满意度的名称-->
+            <td class="text-center" th:if="${!itemsByCategory.get(category.getName()).isEmpty()}"
+                th:colspan="${itemsByCategory.get(category.getName()).size()}"
+                th:text="${category.getName()}">
+            </td>
+        </th:block>
+        <!-- 查询部分 -->
+        <td>
+            <form action="/search" method="get" style="display: flex; justify-content: center;">
+                <input id="name" name="name" type="text" style="width: 100px;" placeholder="请输入姓名...">
+                <input type="submit" class="btn btn-sm btn-primary" value="查询">
+            </form>
+        </td>
+        <td class="col-2 text-center">操作</td>
+    </tr>
+    </thead>
+    <tbody>
+    <th:block th:each="item :${persons}">
+        <tr>
+            <td class="col-1 text-center" th:text="${item.getName()}"></td>
+            <td class="col-1 text-center" th:text="${item.getAge()}"></td>
+            <td class="col-1 text-center" th:text="${item.getSex()}"></td>
+            <th:block th:each="category : ${categories}">
+                <!--                通过获取的category.getName()获取到满意度名称，然后通过itemsByCategory获取到该满意度名称对应的所有满意度项-->
+                <th:block th:each="satisfactionItem : ${itemsByCategory.get(category.getName())}">
+                    <td class="text-center">
+                        <!--                        这个是判断当前用户中是否满足当前判断条件，满足则显示对勾，否则显示圆圈-->
+                        <i th:if="${item.getSatisfactionItems().contains(satisfactionItem)}"
+                           class="bi bi-check-circle-fill text-success"></i>
+                        <i th:unless="${item.getSatisfactionItems().contains(satisfactionItem)}"
+                           class="bi bi-circle text-secondary"></i>
+                    </td>
+                </th:block>
+            </th:block>
+            <td></td>
+            <td class="col-2 d-flex w-100 justify-content-center justify-content-end" style="">
+                <form action="/delete" method="post" class=" mx-2">
+                    <input type="submit" value="删除" class="btn btn-outline-danger">
+                    <input type="hidden" name="name" th:value="${item.getName()}">
+                </form>
+                <form action="/add" method="get" class="mx-2">
+                    <input type="submit" value="编辑" class="btn btn-outline-info">
+                    <input type="hidden" name="name" th:value="${item.getName()}">
+                </form>
+            </td>
+        </tr>
+    </th:block>
+    </tbody>
+</table>
+</body>
+</html>
