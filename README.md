@@ -1,1 +1,2 @@
-![流程图](https://github.com/user-attachments/assets/c2cf39ec-f2ee-4a4f-8fb9-c1847714a29d)
+
+![流程图](https://github.com/user-attachments/assets/9f2adf27-f0d3-4630-a2cb-b3c93a6af2b9)
